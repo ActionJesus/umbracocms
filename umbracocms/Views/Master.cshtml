@@ -1,0 +1,78 @@
+﻿@inherits Umbraco.Web.Mvc.UmbracoTemplatePage
+@{
+Layout = null;
+var home = @CurrentPage.Site();
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Meta tags -->
+    <meta charset="utf-8">
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    
+    <title>@Umbraco.Field("siteTitle", recursive: true))</title>
+
+  
+      
+    <meta name="description" content="@Umbraco.Field("metaDescription", recursive: true)"/>
+
+    <meta name="keywords" content="@Umbraco.Field("metaKeywords", recursive:true)" />  
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+ 
+  
+
+
+    <!-- CSS -->
+    
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+   
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="//oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="//oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="row">
+               
+                <div class="col-sm-12 col-md-12">
+                    <h1 id="title">Aarhus Web Developers Network</h1>
+                   
+
+                    
+                 @Umbraco.RenderMacro("RenderMenu")
+                   
+                  
+                </div>
+            </div>
+        </div>
+        <div id="toggle" class="toggle">
+            <a href="#" class="cross"><span></span></a>
+        </div>
+    </header>
+    <div class="container">
+        <div class="col-md-12">
+            @RenderBody()
+        </div>
+    </div>
+        <footer class="field dark">
+            <div class="container">
+                <div class="col-md-12">
+                    @Umbraco.Field("footer")
+                </div>
+            </div>
+        </footer>
+        <!-- Javascripts -->
+        <script src="~/Scripts/jquery-2.2.2.min.js"></script>
+
+        <script src="~/Scripts/bootstrap.min.js"></script>
+
+</body>
+</html> 

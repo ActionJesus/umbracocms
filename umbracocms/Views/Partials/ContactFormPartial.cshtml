@@ -1,0 +1,69 @@
+﻿@model umbracocms.Models.ContactModel
+@{
+    Layout = null;
+}
+@if (TempData["success"] == null)
+{
+    using (Html.BeginUmbracoForm("HandleFormSubmit", "ContactFormSurface", new object { }, new { @class = "form-horizontal" }))
+    {
+        <div class="form-group">
+            @Html.LabelFor(m => m.Name, new { @class = "col-sm-5 control-label" })
+            <br /><br />
+           
+            <div class="col-sm-6 col-md-offset-2" >
+                @Html.TextBoxFor(m => m.Name, new
+           {
+               @class = "form-control",
+               placeholder = "Please enter your full name"
+           })
+                @Html.ValidationMessageFor(m => m.Name)
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(m => m.Email, new { @class = "col-sm-5 control-label" })
+            <br /><br />
+            <div class="col-sm-6 col-md-offset-2">
+                @Html.TextBoxFor(m => m.Email, new
+           {
+               @class = "form-control",
+               placeholder = "Please enter your E-mail address"
+           })
+                @Html.ValidationMessageFor(m => m.Email)
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(m => m.Subject, new { @class = "col-sm-5 control-label" })
+            <br /><br />
+            <div class="col-sm-6 col-md-offset-2">
+                @Html.TextBoxFor(m => m.Subject, new
+           {
+               @class = "form-control",
+               placeholder = "Please enter the Subject"
+           })
+                @Html.ValidationMessageFor(m => m.Subject)
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(m => m.Message, new { @class = "col-sm-5 control-label" })
+            <br /><br />
+            <div class="col-sm-6 col-md-offset-2">
+                @Html.TextAreaFor(m => m.Message, new
+           {
+               @class = "form-control",
+               placeholder = "Please enter your message"
+           })
+                @Html.ValidationMessageFor(m => m.Message)
+                <br /><br />
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-6 col-md-offset-2">
+                <button id="contact-submit" type="submit" class="btn btn-primary input-medium col-sm-5 col-md-offset-2" >Submit</button>
+            </div>
+        </div>
+    }
+}
+else
+{
+    <p>Thanks for contacting</p>
+}

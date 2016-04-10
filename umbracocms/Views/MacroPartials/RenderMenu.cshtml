@@ -1,0 +1,62 @@
+﻿@inherits Umbraco.Web.Macros.PartialViewMacroPage
+
+
+@*
+    This snippet displays a list of links of the pages immediately under the top-most page in the content tree.
+    This is the home page for a standard website.
+    It also highlights the current active page/section in the navigation with the css class "current".
+*@
+
+@{ var selection = CurrentPage.Site().Children.Where("Visible"); 
+ ;
+ }
+
+ <nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#">LogoHer</a>
+    </div>
+    <ul class="nav navbar-nav">
+      <li class="active"><a href="/">Home</a></li>
+     @foreach (var item in selection)
+    {
+		
+	
+		
+		if(item.Children().Where("UmbracoNaviHide != True").Any())
+		   {
+			     <li class="dropdown">
+        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+		@item.Name
+        <span class="caret"></span></a>
+        <ul class="dropdown-menu">
+			
+			
+         @foreach (var subPage in @item.Children().Where("TemplateId !=0 && UmbracoNaviHide != True").OrderBy("CreateDate desc"))
+         {
+             var isChildProtected = umbraco.library.IsProtected(subPage.Id, subPage.path);
+             var loginChildAccess = umbraco.library.IsProtected(subPage.id, subPage.path) && umbraco.library.HasAccess(subPage.id, subPage.path);
+             if (!isChildProtected || loginChildAccess)
+             { 
+
+                            <li><a href="@subPage.Url">@subPage.Name</a></li>
+                        }}
+        </ul>
+      </li>
+			   
+		   }
+		   else{
+			       <li class="@(item.IsAncestorOrSelf(CurrentPage) ? "current" : null)">
+			
+            <a href="@item.Url">@item.Name</a>
+        </li>
+		   }
+    
+		
+    }
+ 
+
+    
+    </ul>
+  </div>
+</nav>

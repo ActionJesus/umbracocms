@@ -1,0 +1,25 @@
+﻿@inherits Umbraco.Web.Mvc.UmbracoTemplatePage
+@{
+    Layout = "Master.cshtml";
+}
+@{
+    var page = Umbraco.Content(1098);
+    var i = 0;
+}
+
+<h1> @Umbraco.Field("projectsTitle")</h1>
+<p> @Umbraco.Field("projectsBodyText")</p>
+<div class="row col-md-6">
+    @foreach (var subPage in page.Children.Where("TemplateId !=0 && UmbracoNaviHide != True").OrderBy("CreateDate desc"))
+    {
+        var isChildProtected = umbraco.library.IsProtected(subPage.Id, subPage.path);
+        var loginChildAccess = umbraco.library.IsProtected(subPage.id, subPage.path) && umbraco.library.HasAccess(subPage.id, subPage.path);
+        if (!isChildProtected || loginChildAccess)
+        {
+
+                <a href="@subPage.Url">@subPage.Name</a><br />
+        }
+
+    }
+</div>
+<br /><br />

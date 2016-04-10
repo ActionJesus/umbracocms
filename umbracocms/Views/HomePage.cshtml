@@ -1,0 +1,27 @@
+﻿@inherits Umbraco.Web.Mvc.UmbracoTemplatePage
+@{
+	Layout = "Master.cshtml";
+}
+
+@{
+    var page = Umbraco.Content(1098);
+    var i = 0;
+}
+
+<h1> @Umbraco.Field("pageName")</h1>
+<p> @Umbraco.Field("mainContent")</p>
+<div class="row col-md-6">
+    @foreach (var child in page.Children.Where("TemplateId !=0 && UmbracoNaviHide != True").OrderBy("CreateDate desc"))
+    {
+        var preValue = Umbraco.GetPreValueAsString(child.projectStatus);
+        if (preValue == "Completed")
+        {
+            if (i < 3)
+            {
+                <a href="@child.Url">@child.Name</a><br />
+            }
+            i++;
+        }
+    }
+</div>
+<br /><br />
